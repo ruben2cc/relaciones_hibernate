@@ -1,8 +1,11 @@
-package com.benito.hibernate;
+package com.benito.hibernate.test;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import com.benito.hibernate.Instructor;
+import com.benito.hibernate.InstructorDetail;
 
 public class UnoAUnoTest {
 

@@ -1,10 +1,13 @@
 package com.benito.hibernate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +21,13 @@ public class InstructorDetail {
 	@Column(name="youtube_channel")
 	private String youtubeChannel;
 	private String hobby;
+	
+	@OneToOne(mappedBy = "details", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Instructor instructor;
 
+	public InstructorDetail() {
+	}
+	
 	public InstructorDetail(String youtubeChannel, String hobby) {
 		this.youtubeChannel = youtubeChannel;
 		this.hobby = hobby;
@@ -46,6 +55,14 @@ public class InstructorDetail {
 	@Override
 	public String toString() {
 		return "InstructorDetail [id=" + id + ", youtubeChannel=" + youtubeChannel + ", hobby=" + hobby + "]";
+	}
+
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
 	}
 	
 	
