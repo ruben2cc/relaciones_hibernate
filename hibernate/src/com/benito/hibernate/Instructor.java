@@ -1,5 +1,8 @@
 package com.benito.hibernate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+
 
 @Entity
 @Table(name = "instructor")
@@ -27,6 +33,10 @@ public class Instructor {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "instructor_detail_id")
 	private InstructorDetail details;
+	
+	@OneToMany(mappedBy = "instructor", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,
+			CascadeType.REFRESH})
+	private List<Course> courses;
 	
 	public Instructor() {
 
@@ -72,6 +82,15 @@ public class Instructor {
 	}
 	public void setDetails(InstructorDetail details) {
 		this.details = details;
+	}
+	
+public void addCourse(Course course) {
+		
+		if(courses == null)
+			courses = new ArrayList<Course>();
+		
+		courses.add(course);
+		course.setInstructor(this);
 	}
 	
 }
